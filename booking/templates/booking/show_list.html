@@ -1,0 +1,30 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+<h1>Upcoming NBA Matches</h1>
+<ul>
+    {% for show in shows %}
+        <li>
+            <strong>{{ show.title }}</strong><br>
+            {{ show.team1 }} vs {{ show.team2 }} <br>
+            Date & Time: {{ show.date_time }}<br>
+            Venue: {{ show.venue }}<br>
+            Seats Available: {{ show.available_seats }}<br>
+            
+            <!-- Form to add tickets to the cart -->
+            
+            <form method="POST" action="{% url 'add_to_cart' show.id %}">
+                {% csrf_token %}
+                <input type="number" name="num_tickets" value="1" min="1" max="{{ show.available_seats }}">
+                <button type="submit">Add to Cart</button>
+            </form>
+            
+            <!-- Book Now Link for users who want to directly book -->
+            <a href="{% url 'add_to_cart' show.id %}">Book Now</a>
+        </li>
+        <hr>
+    {% empty %}
+        <p>No matches available</p>
+    {% endfor %}
+</ul>
+{% endblock %}

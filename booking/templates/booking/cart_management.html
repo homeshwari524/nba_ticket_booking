@@ -1,0 +1,12 @@
+{% extends 'booking/base.html' %}
+{% block content %}
+<h2>Cart Management</h2>
+<ul>
+    {% for cart in carts %}
+        <li>
+            {{ cart.user.username }} - {{ cart.show.title }} ({{ cart.ticket_count }} tickets)
+            <a href="{% url 'delete_cart_item' cart.id %}">Delete</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

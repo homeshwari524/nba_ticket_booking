@@ -1,0 +1,45 @@
+{% load static %}
+
+<!-- booking/templates/booking/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}NBA Ticket Booking{% endblock %}</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="{% url 'show_list' %}">Home</a>
+        {% if request.user.is_authenticated %}
+            <span>Welcome, {{ request.user.username }}!</span>
+            <a href="{% url 'logout' %}">Logout</a>
+            <a href="{% url 'cart' %}">Cart</a> <!-- Link to Cart -->
+            {% if request.user.is_staff %}
+                <!-- Admin Navigation Links -->
+                <a href="{% url 'show_management' %}">Manage Shows</a>
+                <a href="{% url 'cart_management' %}">Manage Carts</a>
+                <a href="{% url 'booking_history_management' %}">Manage Booking History</a>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </nav>
+    <hr>
+
+    <!-- Content Section -->
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2025 NBA Ticket Booking</p>
+    </footer>
+</body>
+</html>

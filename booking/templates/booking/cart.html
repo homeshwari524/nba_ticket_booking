@@ -1,0 +1,36 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+<h2>Your Cart</h2>
+
+{% if cart_items %}
+    <ul>
+        {% for item in cart_items %}
+            <li>
+                <strong>{{ item.show.title }}</strong><br>
+                {{ item.show.team1 }} vs {{ item.show.team2 }} <br>
+                Tickets: {{ item.ticket_count }}<br>
+                Total for this match: ${{ item.total_show_price }}<br>
+
+                <!-- Form for removing from cart -->
+                <form action="{% url 'remove_from_cart' item.show.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="remove-btn">Remove</button>
+                </form>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+
+    <h3>Total Price: ${{ total_price }}</h3>
+    
+    <!-- Proceed to Order Confirmation -->
+    <form action="{% url 'order_confirmation' %}" method="get">
+        <button type="submit" class="proceed-btn">Proceed to Checkout</button>
+    </form>
+    
+{% else %}
+    <p>Your cart is empty.</p>
+{% endif %}
+
+{% endblock %}

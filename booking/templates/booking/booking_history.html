@@ -1,0 +1,21 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+<h2>Your Booking History</h2>
+
+{% if bookings %}
+    <ul>
+        {% for booking in bookings %}
+            <li>
+                <strong>{{ booking.show.title }}</strong><br>
+                {{ booking.show.team1 }} vs {{ booking.show.team2 }}<br>
+                Tickets: {{ booking.ticket_count }}<br>
+                Date of Booking: {{ booking.date_created|date:"F j, Y" }}<br>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have no booking history.</p>
+{% endif %}
+{% endblock %}

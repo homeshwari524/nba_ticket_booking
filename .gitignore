@@ -1,0 +1,26 @@
+# Python
+*.pyc
+*.pyo
+__pycache__
+
+# Django
+*.log
+*.pot
+*.pyc
+*.sqlite3
+
+# Docker
+*.log
+*.pid
+*.swp
+.docker/
+
+# VS Code settings
+.vscode/
+
+# Virtual Environment
+venv/
+.env/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
